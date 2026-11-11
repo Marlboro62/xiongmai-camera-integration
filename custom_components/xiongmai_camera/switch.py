@@ -42,7 +42,7 @@ class XmSwitch(XiongmaiEntity, SwitchEntity):
 
     @property
     def raw(self) -> Any:
-        return self.value(self.entity_description.section, self.entity_description.path)
+        return self.setting(self.entity_description.section, self.entity_description.path)
 
     @property
     def is_on(self) -> bool | None:

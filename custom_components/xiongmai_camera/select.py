@@ -15,7 +15,7 @@ PATH = ("Camera.Param", [0, "DayNightColor"])
 
 async def async_setup_entry(hass: HomeAssistant, entry: XiongmaiConfigEntry, async_add_entities: AddConfigEntryEntitiesCallback) -> None:
     e = DayNight(entry.runtime_data)
-    if e.value(*PATH) is not None:
+    if e.setting(*PATH) is not None:
         async_add_entities([e])
 
 
@@ -28,7 +28,7 @@ class DayNight(XiongmaiEntity, SelectEntity):
 
     @property
     def current_option(self) -> str | None:
-        v = self.value(*PATH)
+        v = self.setting(*PATH)
         try:
             return DAY_NIGHT.get(int(str(v), 16))
         except ValueError:
@@ -36,6 +36,6 @@ class DayNight(XiongmaiEntity, SelectEntity):
 
     async def async_select_option(self, option: str) -> None:
         code = next(k for k, v in DAY_NIGHT.items() if v == option)
-        old = str(self.value(*PATH) or "0x00000000")
+        old = str(self.setting(*PATH) or "0x00000000")
         width = max(len(old) - 2, 1) if old.startswith("0x") else 8
         await self.coordinator.async_set(PATH[0], PATH[1], "0x" + format(code, "X").zfill(width))

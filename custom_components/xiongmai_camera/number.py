@@ -30,7 +30,7 @@ class MotionLevel(XiongmaiEntity, NumberEntity):
 
     @property
     def native_value(self) -> float | None:
-        v = self.value(*PATH)
+        v = self.setting(*PATH)
         return float(v) if isinstance(v, (int, float)) else None
 
     async def async_set_native_value(self, value: float) -> None:

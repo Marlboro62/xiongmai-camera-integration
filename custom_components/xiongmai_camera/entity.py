@@ -29,7 +29,7 @@ class XiongmaiEntity(CoordinatorEntity[XiongmaiCoordinator]):
             configuration_url=f"http://{entry.data[CONF_HOST]}/",
         )
 
-    def value(self, section: str, path: list[Any]) -> Any:
+    def setting(self, section: str, path: list[Any]) -> Any:
         """Valeur d'un réglage, ou None s'il n'existe pas sur ce modèle."""
         v: Any = (self.coordinator.data or {}).get(section)
         try:

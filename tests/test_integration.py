@@ -90,12 +90,16 @@ async def test_motion_events(hass: HomeAssistant, camera: int) -> None:
     await fake_camera.push_alarm(True)
     for _ in range(100):
         await asyncio.sleep(0.02)
+        await hass.async_block_till_done()
         if hass.states.get(motion).state == "on":
             break
+    assert entry.runtime_data.events_connected, "alarme non reçue par l'intégration"
+    assert entry.runtime_data.motion is True
     assert hass.states.get(motion).state == "on"
     await fake_camera.push_alarm(False)
     for _ in range(100):
         await asyncio.sleep(0.02)
+        await hass.async_block_till_done()
         if hass.states.get(motion).state == "off":
             break
     assert hass.states.get(motion).state == "off"

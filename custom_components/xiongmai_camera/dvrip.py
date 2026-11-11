@@ -305,6 +305,8 @@ class DvripEvents:
                 delay = 5
             except (DvripError, OSError, asyncio.IncompleteReadError, TimeoutError, ConnectionError) as err:
                 _LOGGER.debug("Alarmes de %s : %s", self.client.host, err)
+            except Exception:  # noqa: BLE001 - la boucle des alarmes ne doit jamais s'arrêter
+                _LOGGER.exception("Alarmes de %s : erreur inattendue", self.client.host)
             finally:
                 await self.client.close()
             await asyncio.sleep(delay)
@@ -331,6 +333,7 @@ class DvripEvents:
                 info = json.loads(text).get("AlarmInfo") or {}
             except (json.JSONDecodeError, AttributeError):
                 continue
+            _LOGGER.debug("Alarme de %s : %s", c.host, info)
             self.on_alarm(str(info.get("Event") or ""), int(info.get("Channel") or 0), str(info.get("Status") or "").lower() == "start")
 
     async def close(self) -> None:
