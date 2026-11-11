@@ -1,0 +1,14 @@
+{
+  "entity": {
+    "switch": {
+      "motion_detect": {"default": "mdi:motion-sensor", "state": {"off": "mdi:motion-sensor-off"}},
+      "mirror": {"default": "mdi:flip-horizontal"},
+      "flip": {"default": "mdi:flip-vertical"},
+      "cloud": {"default": "mdi:cloud-outline", "state": {"off": "mdi:cloud-off-outline"}}
+    },
+    "number": {"motion_level": {"default": "mdi:tune-vertical"}},
+    "select": {"day_night": {"default": "mdi:theme-light-dark"}},
+    "button": {"sync_time": {"default": "mdi:clock-check-outline"}},
+    "sensor": {"uptime": {"default": "mdi:timer-outline"}}
+  }
+}
