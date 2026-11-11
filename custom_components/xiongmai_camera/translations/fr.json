@@ -1,0 +1,102 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Caméra XiongMai",
+        "description": "Caméra IP XiongMai / XMEye / NetSurveillance, reliée par son protocole (DVRIP). Pour tous les réglages du firmware, installez aussi l'application « Caméra XiongMai ».",
+        "data": {
+          "name": "Nom",
+          "host": "Adresse IP de la caméra",
+          "port": "Port DVRIP",
+          "username": "Utilisateur",
+          "password": "Mot de passe"
+        },
+        "data_description": {
+          "name": "Nom de l'appareil dans Home Assistant, par exemple « Palier ».",
+          "host": "Adresse de la caméra sur votre réseau, par exemple 192.168.1.50.",
+          "port": "34567 par défaut : le port du logiciel CMS, pas le port web 80.",
+          "username": "Souvent « admin ».",
+          "password": "Vide si la caméra n'a pas de mot de passe."
+        }
+      },
+      "reconfigure": {
+        "title": "Caméra XiongMai",
+        "description": "Modifier l'adresse ou les identifiants de la caméra.",
+        "data": {
+          "name": "Nom",
+          "host": "Adresse IP de la caméra",
+          "port": "Port DVRIP",
+          "username": "Utilisateur",
+          "password": "Mot de passe"
+        },
+        "data_description": {
+          "name": "Nom de l'appareil dans Home Assistant, par exemple « Palier ».",
+          "host": "Adresse de la caméra sur votre réseau, par exemple 192.168.1.50.",
+          "port": "34567 par défaut : le port du logiciel CMS, pas le port web 80.",
+          "username": "Souvent « admin ».",
+          "password": "Vide si la caméra n'a pas de mot de passe."
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Caméra injoignable : vérifiez l'adresse et le port (34567).",
+      "invalid_auth": "Utilisateur ou mot de passe incorrect."
+    },
+    "abort": {
+      "already_configured": "Cette caméra est déjà configurée.",
+      "reconfigure_successful": "Caméra mise à jour."
+    }
+  },
+  "entity": {
+    "binary_sensor": {
+      "motion": {
+        "name": "Mouvement"
+      },
+      "online": {
+        "name": "Connexion"
+      }
+    },
+    "button": {
+      "reboot": {
+        "name": "Redémarrer"
+      },
+      "sync_time": {
+        "name": "Mettre à l'heure de Home Assistant"
+      }
+    },
+    "number": {
+      "motion_level": {
+        "name": "Sensibilité de la détection"
+      }
+    },
+    "select": {
+      "day_night": {
+        "name": "Mode jour / nuit",
+        "state": {
+          "auto": "Automatique",
+          "color": "Toujours en couleur",
+          "black_white": "Toujours en noir et blanc"
+        }
+      }
+    },
+    "sensor": {
+      "uptime": {
+        "name": "Temps de fonctionnement"
+      }
+    },
+    "switch": {
+      "motion_detect": {
+        "name": "Détection de mouvement"
+      },
+      "mirror": {
+        "name": "Image miroir"
+      },
+      "flip": {
+        "name": "Image retournée"
+      },
+      "cloud": {
+        "name": "Cloud XMEye"
+      }
+    }
+  }
+}
