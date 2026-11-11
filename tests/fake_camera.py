@@ -73,6 +73,7 @@ SYSINFO = {"AlarmInChannel": 2, "AlarmOutChannel": 1, "BuildTime": "2017-07-20 0
 LANGS = ["English", "SimpChinese", "French", "German"]
 SNAPSHOT = Path(__file__).parent / "demo-snapshot.jpg"  # image fictive
 SUBSCRIBERS: list = []  # connexions abonnées aux alarmes (GUARD)
+CONNECTIONS: list = []  # toutes les connexions ouvertes (fermées à la fin de chaque test)
 
 
 def reset() -> None:
@@ -80,6 +81,7 @@ def reset() -> None:
     CONFIG.clear()
     CONFIG.update(copy.deepcopy(DEFAULTS))
     SUBSCRIBERS.clear()
+    CONNECTIONS.clear()
 
 
 async def push_alarm(active: bool, event: str = "VideoMotion") -> None:
@@ -95,6 +97,7 @@ async def push_alarm(active: bool, event: str = "VideoMotion") -> None:
 
 
 async def handle(reader: asyncio.StreamReader, writer: asyncio.StreamWriter) -> None:
+    CONNECTIONS.append(writer)
     session = 0
     state = {"time": datetime.now().strftime("%Y-%m-%d %H:%M:%S"), "logged": False}
     try:

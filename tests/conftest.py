@@ -17,7 +17,10 @@ async def camera(socket_enabled):
     fake_camera.reset()
     server = await asyncio.start_server(fake_camera.handle, "127.0.0.1", 0)
     yield server.sockets[0].getsockname()[1]
-    for w in list(fake_camera.SUBSCRIBERS):
-        w.close()
     server.close()
-    await server.wait_closed()
+    for w in list(fake_camera.CONNECTIONS):
+        w.close()
+    try:
+        await asyncio.wait_for(server.wait_closed(), 5)
+    except TimeoutError:
+        pass
